@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_shop"
+        android:name="com.example.proyectodam.ui.shop.ShopFragment"
+        android:label="Catalogo"
+        tools:layout="@layout/fragment_shop" />
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.proyectodam.ui.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/nav_carrito"
+        android:name="com.example.proyectodam.ui.shoppingcart.CarritoFragment"
+        android:label="@string/carrito"
+        tools:layout="@layout/fragment_carrito" />
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.proyectodam.ui.profile.PerfilFragment"
+        android:label="Perfil"
+        tools:layout="@layout/fragment_perfil" />
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.example.proyectodam.ui.login.LoginFragment"
+        android:label="Iniciar sesión"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/nav_register"
+        android:name="com.example.proyectodam.ui.register.RegisterFragment"
+        android:label="Registro"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/nav_apriv"
+        android:name="com.example.proyectodam.ui.PrivacyNotice.AprivFragment"
+        android:label="Aviso de privacidad"
+        tools:layout="@layout/fragment_apriv" />
+    <fragment
+        android:id="@+id/nav_History"
+        android:name="com.example.proyectodam.ui.history.HistoryFragment"
+        android:label="Historial"
+        tools:layout="@layout/fragment_history" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.proyectodam.ui.login.LoginFragment"
+        android:label="Iniciar sesión"
+        tools:layout="@layout/fragment_login"
+        />
+
+</navigation>
