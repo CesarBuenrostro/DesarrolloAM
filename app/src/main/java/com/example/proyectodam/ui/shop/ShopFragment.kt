@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectodam.data.api.RetrofitClient
+import com.example.proyectodam.data.api.SessionManager
 import com.example.proyectodam.databinding.FragmentShopBinding
 
 class ShopFragment : Fragment() {

@@ -18,4 +18,21 @@ class SessionManager(context: Context) {
     fun clearSession() {
         prefs.edit().clear().apply()
     }
+
+    fun saveUserInfo(name: String, email: String) {
+        prefs.edit().apply {
+            putString("USER_NAME", name)
+            putString("USER_EMAIL", email)
+            apply()
+        }
+    }
+
+    fun fetchUserName(): String? {
+        return prefs.getString("USER_NAME", null)
+    }
+
+    fun fetchUserEmail(): String? {
+        return prefs.getString("USER_EMAIL", null)
+    }
+
 }
