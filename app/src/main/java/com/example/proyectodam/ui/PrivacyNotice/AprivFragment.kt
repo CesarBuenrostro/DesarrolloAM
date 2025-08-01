@@ -31,7 +31,7 @@ class AprivFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.show()
 
         binding.btnContinue.setOnClickListener {
-            findNavController().navigate(R.id.nav_shop)
+            findNavController().navigate(R.id.nav_login)
         }
     }
 

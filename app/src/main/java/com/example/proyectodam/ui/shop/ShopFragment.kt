@@ -70,10 +70,10 @@ class ShopFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Log.e("API_ERROR", "Error al obtener productos", t)
+                Log.e("API_ERROR", "Error al obtener carrito", t)
             }
         })
-}
+    }
 
 
     override fun onDestroyView() {
