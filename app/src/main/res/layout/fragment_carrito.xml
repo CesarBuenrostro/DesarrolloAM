@@ -7,6 +7,17 @@
     android:background="@color/white"
     android:padding="16dp">
 
+    <ImageButton
+        android:id="@+id/IB_ClearCarrito"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_trash"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/congratsMessage"
+        />
+
     <ImageView
         android:id="@+id/logo"
         android:layout_width="50dp"
@@ -107,13 +118,13 @@
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- Botón de pagar -->
     <Button
         android:id="@+id/payButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/black"
+        app:backgroundTint="@null"
+        android:background="@drawable/button_design2"
         android:text="PAGAR"
         android:textAllCaps="false"
         android:textColor="@color/white"

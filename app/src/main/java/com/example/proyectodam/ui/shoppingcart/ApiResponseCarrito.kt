@@ -21,7 +21,7 @@ data class ItemCarrito(
     val productoId: String,
     val nombre: String,
     val precio: Double,
-    val cantidad: Int,
+    var cantidad: Int,
     val talla: String,
-    val subtotal: Double
+    var subtotal: Double
 )

@@ -1,13 +1,15 @@
 package com.example.proyectodam.ui.shop
 
-import android.R
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.proyectodam.R
 import com.example.proyectodam.databinding.BoxitemProductBinding
 
-class ProductoAdapter(private val productos: List<Producto>) :
+class ProductoAdapter(private val productos: List<Producto>,
+    private val onAddCart : (Producto) -> Unit) :
     RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductoViewHolder {
@@ -18,14 +20,22 @@ class ProductoAdapter(private val productos: List<Producto>) :
     override fun onBindViewHolder(holder: ProductoViewHolder, position: Int) {
         val producto = productos[position]
         holder.binding.productName.text = producto.nombre
-        holder.binding.productPrice.text = producto.precio
-        holder.binding.productSize.text = producto.talla
+        holder.binding.productPrice.text = "Precio: ${ producto.precio }"
+        holder.binding.productSize.text = "Talla: ${ producto.talla }"
+
+        holder.binding.addCart.setOnClickListener {
+            onAddCart(producto)
+        }
+
+        val baseUrl = "http://192.168.0.9:3000" // localhost desde el emulador Android
+        val fullImageUrl = baseUrl + producto.imagen // ej: /images/img1.jpg
 
         Glide.with(holder.itemView.context)
-            .load(producto.imagen)
-            .placeholder(R.drawable.arrow_down_float) // opcional: imagen mientras carga
-            .error(R.drawable.arrow_down_float)             // opcional: imagen si falla
+            .load(fullImageUrl)
+            .placeholder(R.drawable.ic_menu_camera) // opcional: imagen mientras carga
+            .error(R.drawable.ic_minus)             // opcional: imagen si falla
             .into(holder.binding.productImage)         // 👈 Asegúrate que este ID exista en tu layout
+
     }
 
 
@@ -34,3 +44,4 @@ class ProductoAdapter(private val productos: List<Producto>) :
     inner class ProductoViewHolder(val binding: BoxitemProductBinding) :
         RecyclerView.ViewHolder(binding.root)
 }
+

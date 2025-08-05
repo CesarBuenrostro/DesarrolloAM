@@ -47,7 +47,7 @@
         android:label="Aviso de privacidad"
         tools:layout="@layout/fragment_apriv" />
     <fragment
-        android:id="@+id/nav_History"
+        android:id="@+id/nav_history"
         android:name="com.example.proyectodam.ui.history.HistoryFragment"
         android:label="Historial"
         tools:layout="@layout/fragment_history" />

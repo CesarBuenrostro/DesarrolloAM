@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 private lateinit var sessionManager: SessionManager
+private lateinit var carritoAdapter: CarritoAdapter
+
 
 class CarritoFragment : Fragment() {
 
@@ -40,7 +43,7 @@ class CarritoFragment : Fragment() {
         val tokenConBearer = "Bearer $token"
 
 
-        // Llamada a la API usando Retrofit
+
         RetrofitClient.instance.obtenerCarrito(tokenConBearer).enqueue(object : Callback<ApiResponseCarrito> {
             override fun onResponse(call: Call<ApiResponseCarrito>, response: Response<ApiResponseCarrito>) {
                 Log.d("CarritoFragment", "Respuesta carrito: ${response.body()}")
@@ -60,10 +63,22 @@ class CarritoFragment : Fragment() {
                                 LinearLayoutManager.VERTICAL,
                                 false
                             )
-                            adapter = CarritoAdapter(items)
+                            carritoAdapter = CarritoAdapter(items.toMutableList()){
+                                item,position ->
+                                val builder = AlertDialog.Builder(requireContext())
+                                builder.setTitle("Confirmar eliminación")
+                                builder.setMessage("¿Deseas eliminar este producto del carrito?")
+                                builder.setPositiveButton("Sí") { _, _ ->
+                                    eliminarItemDelCarrito(tokenConBearer, item.productoId, position)
+                                }
+                                builder.setNegativeButton("Cancelar", null)
+                                builder.show()
+
+                            }
+                            adapter = carritoAdapter
                         }
                     } else {
-                        Toast.makeText(requireContext(), "dpdsdmfvsevnepasnviñniew", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Agrega Productos al carrito", Toast.LENGTH_SHORT).show()
                     }
                 } else {
                     Toast.makeText(requireContext(), "Error al obtener el carrito", Toast.LENGTH_SHORT).show()
@@ -75,7 +90,88 @@ class CarritoFragment : Fragment() {
             }
         })
 
+        binding.IBClearCarrito.setOnClickListener {
+            val builder = AlertDialog.Builder(requireContext())
+            builder.setTitle("Confirmar")
+            builder.setMessage("¿Estás seguro de que deseas vaciar el carrito?")
+
+            builder.setPositiveButton("Sí") { _, _ ->
+                // Llamar a la API para vaciar el carrito
+                RetrofitClient.instance.clearCarrito("Bearer $token").enqueue(object : Callback<ApiResponseCarrito> {
+                    override fun onResponse(call: Call<ApiResponseCarrito>, response: Response<ApiResponseCarrito>) {
+                        if (response.isSuccessful) {
+                            carritoAdapter.updateItems(mutableListOf())
+                            binding.tvTotal.text = "0"
+                            Toast.makeText(requireContext(), "Carrito vaciado correctamente", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(requireContext(), "Error al vaciar el carrito", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onFailure(call: Call<ApiResponseCarrito>, t: Throwable) {
+                        Toast.makeText(requireContext(), "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
+            builder.setNegativeButton("Cancelar", null)
+            builder.show()
+        }
+
     }
+
+    private fun clearCarrito(token: String) {
+        RetrofitClient.instance.clearCarrito(token).enqueue(object : Callback<ApiResponseCarrito> {
+            override fun onResponse(call: Call<ApiResponseCarrito>, response: Response<ApiResponseCarrito>) {
+                if (response.isSuccessful) {
+                    carritoAdapter.updateItems(mutableListOf())
+                    binding.tvTotal.text = "0"
+                    Toast.makeText(requireContext(), "Carrito vaciado", Toast.LENGTH_SHORT).show()
+                } else {
+                    Log.e("API", "Error al vaciar carrito: ${response.message()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponseCarrito>, t: Throwable) {
+                Log.e("API_ERROR", "Fallo al conectar con la API", t)
+            }
+        })
+    }
+
+    // private fun pagarCarrito(token: String) {
+//        RetrofitClient.instance.pagarCarrito(token).enqueque(object : Callback<ApiResponseCarrito> {
+//            override fun onResponse(
+//                call: Call<ApiResponseCarrito?>,
+//                response: Response<ApiResponseCarrito?>
+//            ) {
+//                if (response.isSuccessful) {
+//                    carritoAdapter.pafar
+//                }
+//            }
+//        })
+//    }
+
+    private fun eliminarItemDelCarrito(token: String, itemId: String, position: Int) {
+        RetrofitClient.instance.deleteProductCarrito(token, itemId).enqueue(object : Callback<ApiResponseCarrito> {
+            override fun onResponse(call: Call<ApiResponseCarrito>, response: Response<ApiResponseCarrito>) {
+                if (response.isSuccessful) {
+                    carritoAdapter.removeItemAt(position)
+                    // Actualizar total si tu respuesta lo contiene
+                    val nuevoTotal = response.body()?.data?.total ?: 0
+                    binding.tvTotal.text = "$nuevoTotal"
+                    Toast.makeText(requireContext(), "Producto eliminado", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "Error al eliminar producto", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponseCarrito>, t: Throwable) {
+                Toast.makeText(requireContext(), "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
