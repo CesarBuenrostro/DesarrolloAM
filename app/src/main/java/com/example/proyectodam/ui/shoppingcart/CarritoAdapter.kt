@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.proyectodam.databinding.CarritoitemCardBinding
 import android.text.TextWatcher
+import com.example.proyectodam.R
 
 class CarritoAdapter(
     private val items: MutableList<ItemCarrito>,
@@ -32,6 +33,15 @@ class CarritoAdapter(
         holder.binding.tvPrecio.text = "${item.precio}"
         holder.binding.etCantidad.setText(item.cantidad.toString())
         holder.binding.tvTalla.text = "Talla ${item.talla}"
+
+        val baseUrl = "http://192.168.0.9:3000"
+        val fullImageUrl = baseUrl + item.imagen
+
+        Glide.with(holder.itemView.context)
+            .load(fullImageUrl)
+            .placeholder(R.drawable.ic_menu_camera) // opcional: imagen mientras carga
+            .error(R.drawable.ic_minus)             // opcional: imagen si falla
+            .into(holder.binding.IVImage)         // 👈 Asegúrate que este ID exista en tu layout
 
         // Función para actualizar subtotal
         fun actualizarSubtotal(nuevaCantidad: Int) {
@@ -82,10 +92,6 @@ class CarritoAdapter(
     fun removeItemAt(position: Int) {
         items.removeAt(position)
         notifyItemRemoved(position)
-    }
-
-    fun pagarCarrito(pagado: List<ItemCarrito>) {
-
     }
 
     fun updateItems(newItems: List<ItemCarrito>) {

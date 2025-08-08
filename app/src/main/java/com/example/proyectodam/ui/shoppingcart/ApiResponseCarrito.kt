@@ -23,5 +23,6 @@ data class ItemCarrito(
     val precio: Double,
     var cantidad: Int,
     val talla: String,
+    var imagen: String,
     var subtotal: Double
 )

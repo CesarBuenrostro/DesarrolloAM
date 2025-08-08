@@ -1,5 +1,6 @@
 package com.example.proyectodam.data.api
 
+import com.example.proyectodam.ui.history.ApiResponseHistory
 import com.example.proyectodam.ui.login.LoginRequest
 import com.example.proyectodam.ui.login.LoginResponse
 import com.example.proyectodam.ui.register.RegisterResponse
@@ -28,6 +29,10 @@ interface ApiService {
         @Path("key") key: String,
         @Path("value") value: String
     ): Call<ApiResponse>
+
+    @POST("valeua/history")
+    fun crearPedido(
+        @Header("Authorization") token: String): Call<ApiResponseGeneric>
 
 
 
@@ -60,4 +65,7 @@ interface ApiService {
         @Query ("productoId") itemId: String
     ): Call<ApiResponseCarrito>
 
+    @GET("/valeua/history")
+    fun obtenerHistorial(
+        @Header("Authorization") token: String): Call<ApiResponseHistory>
 }

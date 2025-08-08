@@ -9,10 +9,14 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.proyectodam.R
+import com.example.proyectodam.data.api.ApiResponseGeneric
 import com.example.proyectodam.data.api.RetrofitClient
 import com.example.proyectodam.data.api.SessionManager
 import com.example.proyectodam.databinding.FragmentCarritoBinding
+import com.example.proyectodam.ui.shop.ApiResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -46,7 +50,6 @@ class CarritoFragment : Fragment() {
 
         RetrofitClient.instance.obtenerCarrito(tokenConBearer).enqueue(object : Callback<ApiResponseCarrito> {
             override fun onResponse(call: Call<ApiResponseCarrito>, response: Response<ApiResponseCarrito>) {
-                Log.d("CarritoFragment", "Respuesta carrito: ${response.body()}")
 
                 if (response.isSuccessful && response.body()?.success == true) {
 
@@ -118,6 +121,35 @@ class CarritoFragment : Fragment() {
             builder.show()
         }
 
+
+
+        binding.btnPagar.setOnClickListener {
+                val token = sessionManager.fetchAuthToken()
+                val tokenConBearer = "Bearer $token"
+
+                RetrofitClient.instance.crearPedido(tokenConBearer)
+                    .enqueue(object : Callback<ApiResponseGeneric> {
+                        override fun onResponse(call: Call<ApiResponseGeneric>, response: Response<ApiResponseGeneric>) {
+                            if (response.isSuccessful && response.body()?.success == true) {
+                                Toast.makeText(requireContext(), "¡Pedido realizado con éxito!", Toast.LENGTH_SHORT).show()
+
+                                findNavController().navigate(R.id.nav_history)
+
+
+                            } else {
+                                Log.e("PEDIDO_ERROR", "Mensaje del servidor: ${response.body()?.message}")
+                                Toast.makeText(requireContext(), "No se pudo realizar el pedido", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+
+                        override fun onFailure(call: Call<ApiResponseGeneric>, t: Throwable) {
+                            Toast.makeText(requireContext(), "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    })
+        } //
+
+
+
     }
 
     private fun clearCarrito(token: String) {
@@ -137,19 +169,6 @@ class CarritoFragment : Fragment() {
             }
         })
     }
-
-    // private fun pagarCarrito(token: String) {
-//        RetrofitClient.instance.pagarCarrito(token).enqueque(object : Callback<ApiResponseCarrito> {
-//            override fun onResponse(
-//                call: Call<ApiResponseCarrito?>,
-//                response: Response<ApiResponseCarrito?>
-//            ) {
-//                if (response.isSuccessful) {
-//                    carritoAdapter.pafar
-//                }
-//            }
-//        })
-//    }
 
     private fun eliminarItemDelCarrito(token: String, itemId: String, position: Int) {
         RetrofitClient.instance.deleteProductCarrito(token, itemId).enqueue(object : Callback<ApiResponseCarrito> {

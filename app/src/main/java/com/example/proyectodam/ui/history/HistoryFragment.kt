@@ -2,58 +2,87 @@ package com.example.proyectodam.ui.history
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.RatingBar
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.example.proyectodam.R
-import java.text.SimpleDateFormat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.proyectodam.data.api.ApiResponseGeneric
+import com.example.proyectodam.data.api.RetrofitClient
+import com.example.proyectodam.data.api.SessionManager
+import com.example.proyectodam.databinding.FragmentHistoryBinding
+import com.example.proyectodam.ui.history.Pedido
+import com.example.proyectodam.ui.shoppingcart.ApiResponseCarrito
+import com.example.proyectodam.ui.shoppingcart.CarritoAdapter
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.util.*
+
+private lateinit var historyAdapter: HistoryAdapter
 
 class HistoryFragment : Fragment() {
 
-    private val historial = mutableListOf<Pedido>()
+    private var _binding: FragmentHistoryBinding? = null
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_history, container, false)
-        val layoutPedidos = view.findViewById<LinearLayout>(R.id.linearLayoutPedidos)
-
-        // Ejemplo de historial inicial (puedes modificarlo o recibirlo de otro lugar)
-        historial.add(Pedido("Pedido 1", "01/08/2025", listOf("Chamara afelpada"), 4.0f))
-        historial.add(Pedido("Pedido 2", "31/07/2025", listOf("Sudadera café"), 3.0f))
-
-        cargarHistorial(layoutPedidos)
-        return view
+        _binding = FragmentHistoryBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun cargarHistorial(layoutPedidos: LinearLayout) {
-        for (pedido in historial) {
-            val cardView = layoutInflater.inflate(R.layout.pedido_card, null) as CardView
-            val imagen = cardView.findViewById<ImageView>(R.id.pedidoImagen)
-            val numero = cardView.findViewById<TextView>(R.id.pedidoNumero)
-            val fecha = cardView.findViewById<TextView>(R.id.pedidoFecha)
-            val productosText = cardView.findViewById<TextView>(R.id.pedidoProductos)
-            val rating = cardView.findViewById<RatingBar>(R.id.pedidoRating)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-            imagen.setImageResource(R.drawable.img1) // Asegúrate de tener esta imagen
-            numero.text = pedido.numero
-            fecha.text = pedido.fecha
-            productosText.text = pedido.productos.joinToString(", ")
-            rating.rating = pedido.calificacion
+        (activity as AppCompatActivity).supportActionBar?.show()
 
-            layoutPedidos.addView(cardView)
-        }
+        val  sessionManager = SessionManager(requireContext())
+
+        val token = sessionManager.fetchAuthToken()
+        val tokenConBearer = "Bearer $token"
+
+        RetrofitClient.instance.obtenerHistorial(tokenConBearer).enqueue(object : Callback<ApiResponseHistory> {
+            override fun onResponse(call: Call<ApiResponseHistory>, response: Response<ApiResponseHistory>) {
+
+
+                if (response.isSuccessful && response.body()?.success == true) {
+
+                    val pedidos = response.body()
+
+                    val items = pedidos?.data ?: emptyList()
+
+                    if (items.isNotEmpty()) {
+                        binding.recyclerHistory.apply {
+                            layoutManager = LinearLayoutManager(
+                                requireContext(),
+                                LinearLayoutManager.VERTICAL,
+                                false
+                            )
+
+                        }
+
+                    } else {
+                        Toast.makeText(requireContext(), "Haz pedidos", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(requireContext(), "Error al obtener el historial", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponseHistory>, t: Throwable) {
+                Log.d("HistoryFragment", "Respuesta carrito: ${t}")
+                Toast.makeText(requireContext(), "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+
     }
 }
-
-// Clase de datos para el historial
-data class Pedido(val numero: String, val fecha: String, val productos: List<String>, val calificacion: Float)
