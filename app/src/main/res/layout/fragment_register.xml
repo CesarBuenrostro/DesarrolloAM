@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/register_background">
 
     <LinearLayout
         android:id="@+id/loginContainer"
@@ -11,6 +12,8 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:padding="24dp"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -18,10 +21,13 @@
         app:layout_constraintVertical_bias="0.2">
 
         <ImageView
-            android:layout_width="250dp"
-            android:layout_height="270dp"
-            android:src="@drawable/logo3"
-            />
+            android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/logo3"
+        android:contentDescription="Logo"
+        android:scaleType="centerCrop"
+        android:layout_marginBottom="16dp" />
 
         <TextView
             android:id="@+id/titleText"
@@ -31,42 +37,42 @@
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="24dp"
-            android:textColor="@color/black"
-            />
+            android:textColor="#a36063" />
 
         <EditText
             android:id="@+id/inputNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Nombre"
-            android:inputType="text"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            />
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp" />
+
         <EditText
             android:id="@+id/inputApellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Apellido"
-            android:inputType="text"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            />
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp" />
+
         <EditText
             android:id="@+id/inputCorreo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Correo"
-            android:inputType="textEmailAddress"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            />
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp"
+            android:inputType="textEmailAddress" />
+
         <EditText
             android:id="@+id/inputEdad"
             android:layout_width="match_parent"
@@ -74,10 +80,10 @@
             android:hint="Edad"
             android:inputType="number"
             android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            />
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/inputPassword"
@@ -86,18 +92,20 @@
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/black"
-            android:textColorHint="@color/gray"
-            />
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp" />
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:backgroundTint="@null"
-            android:background="@drawable/button_design2"
-            android:text="Registrar" />
+            android:background="@drawable/button_register"
+            android:text="Registrar"
+            android:textColor="#FFFFFF"
+            android:padding="12dp" />
 
     </LinearLayout>
 
