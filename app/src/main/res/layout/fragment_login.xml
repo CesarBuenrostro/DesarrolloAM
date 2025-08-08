@@ -47,7 +47,7 @@
             android:inputType="textEmailAddress"
             android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_border"
-            android:textColor="#a36063"
+            android:textColor="#000000"
             android:textColorHint="#aba8b2"
             android:padding="12dp" />
 
@@ -58,20 +58,20 @@
             android:hint="Contraseña"
             android:layout_marginBottom="24dp"
             android:background="@drawable/edittext_border"
-            android:textColor="#F8F4F4"
+            android:textColor="#000000"
             android:textColorHint="#aba8b2"
             android:padding="12dp"
             android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btn_login"
-            android:layout_width="wrap_content"
+            android:layout_width="363dp"
             android:layout_height="wrap_content"
-            app:backgroundTint="@null"
             android:background="@drawable/button_login"
+            android:padding="12dp"
             android:text="Ingresar"
             android:textColor="#FFFFFF"
-            android:padding="12dp" />
+            app:backgroundTint="@null" />
 
         <TextView
             android:id="@+id/forgotPassword"

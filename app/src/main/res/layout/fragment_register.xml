@@ -12,7 +12,7 @@
         android:orientation="vertical"
         android:gravity="center_horizontal"
         android:padding="24dp"
-        android:background="#FFFFFF"
+        android:background="#00E9A6B7"
         android:elevation="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +24,7 @@
             android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/logo3"
+        android:src="@drawable/logov"
         android:contentDescription="Logo"
         android:scaleType="centerCrop"
         android:layout_marginBottom="16dp" />
@@ -46,7 +46,7 @@
             android:hint="Nombre"
             android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_border"
-            android:textColor="#a36063"
+            android:textColor="#000000"
             android:textColorHint="#aba8b2"
             android:padding="12dp" />
 
@@ -57,7 +57,7 @@
             android:hint="Apellido"
             android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_border"
-            android:textColor="#a36063"
+            android:textColor="#000000"
             android:textColorHint="#aba8b2"
             android:padding="12dp" />
 
@@ -68,7 +68,7 @@
             android:hint="Correo"
             android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_border"
-            android:textColor="#a36063"
+            android:textColor="#000000"
             android:textColorHint="#aba8b2"
             android:padding="12dp"
             android:inputType="textEmailAddress" />
@@ -81,7 +81,7 @@
             android:inputType="number"
             android:layout_marginBottom="16dp"
             android:background="@drawable/edittext_border"
-            android:textColor="#a36063"
+            android:textColor="#000000"
             android:textColorHint="#aba8b2"
             android:padding="12dp" />
 
@@ -93,19 +93,19 @@
             android:inputType="textPassword"
             android:layout_marginBottom="24dp"
             android:background="@drawable/edittext_border"
-            android:textColor="#a36063"
+            android:textColor="#000000"
             android:textColorHint="#aba8b2"
             android:padding="12dp" />
 
         <Button
             android:id="@+id/btnRegister"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:backgroundTint="@null"
             android:background="@drawable/button_register"
+            android:padding="1dp"
             android:text="Registrar"
             android:textColor="#FFFFFF"
-            android:padding="12dp" />
+            app:backgroundTint="@null" />
 
     </LinearLayout>
 
