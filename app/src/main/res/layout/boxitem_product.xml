@@ -1,50 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="200dp"
-    android:layout_height="260dp"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:elevation="4dp"
-    android:layout_marginHorizontal="6dp"
+    android:padding="12dp"
+    android:elevation="6dp"
+    android:layout_marginHorizontal="8dp"
     android:background="@drawable/itembox_shop"
-    >
+    android:gravity="center_horizontal"><!-- Imagen del producto -->
     <ImageView
         android:id="@+id/product_image"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:scaleType="fitCenter"
+        android:layout_height="140dp"
+        android:scaleType="centerCrop"
         android:background="@android:color/transparent"
         android:adjustViewBounds="true"
-        />
+        android:layout_marginBottom="8dp"/>
 
+    <!-- Nombre del producto -->
     <TextView
         android:id="@+id/product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="nombreProducto"
+        android:text="Nombre del producto"
         android:textStyle="bold"
         android:textSize="16sp"
-        android:layout_marginTop="8dp"
         android:textColor="@color/black"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:gravity="center"
         />
 
+    <!-- Precio -->
     <TextView
         android:id="@+id/product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$000.00"
-        android:textColor="#8B6C40"
-        android:textSize="14sp"
+        android:textColor="#E28CB7"
+        android:textSize="15sp"
         android:textStyle="bold"
+        android:layout_marginTop="4dp"
         />
 
+    <!-- Talla -->
     <TextView
         android:id="@+id/product_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Talla M"
         android:textSize="14sp"
-        android:textColor="@color/black"
-        />
+        android:textColor="#666666"
+        android:layout_marginTop="2dp"
+        /></LinearLayout>
 
-</LinearLayout>
