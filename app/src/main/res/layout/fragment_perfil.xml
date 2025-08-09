@@ -1,31 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/perfil_background">
 
     <ImageButton
         android:id="@+id/logo1"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/logo3"
+        android:src="@drawable/logov"
         android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="@null"
         android:padding="0dp"
-        android:layout_marginBottom="12dp"
-        />
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/perfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/logo1"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Perfil"
-        android:textSize="32dp"
+        android:textSize="32sp"
+        android:textStyle="bold"
         android:layout_marginStart="32dp"
-        />
+        android:layout_marginTop="16dp"
+        android:textColor="#a36063" />
 
     <ImageView
         android:id="@+id/imagenperfil"
@@ -35,8 +39,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:src="@drawable/perfil"
-
-        />
+        android:contentDescription="Imagen de perfil"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="16dp" />
 
     <TextView
         android:id="@+id/user"
@@ -45,17 +50,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imagenperfil"
-        />
+        android:text="Usuario Ejemplo"
+        android:textSize="18sp"
+        android:textColor="#00FFFFFF"
+        android:layout_marginTop="8dp" />
 
     <View
         android:id="@+id/divider1"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:elevation="3dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/user"
+        android:background="#aba8b2"
+        app:layout_constraintTop_toBottomOf="@+id/user"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
@@ -63,77 +71,86 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider1"
-        android:background="#eee"
-        android:layout_marginHorizontal="48dp"
-        android:padding="32dp"
-        android:backgroundTint="#8B6C40"
+        android:padding="24dp"
+        android:layout_marginHorizontal="32dp"
+        android:background="#eee2e3"
+        app:layout_constraintVertical_bias="0.5">
 
-        >
         <TextView
             android:id="@+id/informacion"
             android:layout_width="wrap_content"
-            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:text="Información"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:textColor="@color/white"
-            />
+            android:textColor="#a36063"
+            android:textSize="20sp" />
+
         <TextView
             android:id="@+id/aviso"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/informacion"
+            app:layout_constraintTop_toBottomOf="@+id/informacion"
             android:text="Puedes editar tu información, favor de confirmar al terminar"
-            android:textColor="@color/white"
-            />
+            android:textColor="#6D6B73"
+            android:textSize="14sp"
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/correo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Usuario"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/aviso"
-            android:textColor="@color/white"
-            />
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/direccion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/correo"
-            android:textColor="@color/white"
-            />
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp" />
 
         <EditText
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"
-            android:layout_marginBottom="24dp"
+            android:layout_marginTop="16dp"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@+id/direccion"/>
+            app:layout_constraintTop_toBottomOf="@+id/direccion"
+            android:background="@drawable/edittext_border"
+            android:textColor="#a36063"
+            android:textColorHint="#aba8b2"
+            android:padding="12dp"
+            android:inputType="textPassword" />
 
         <Button
             android:id="@+id/btnLogin"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:backgroundTint="@null"
-            android:background="@drawable/button_design2"
-            android:text="Guardar" />
+            android:background="@drawable/button_perfil"
+            android:text="Guardar"
+            android:textColor="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginTop="16dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

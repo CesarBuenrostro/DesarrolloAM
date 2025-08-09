@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/divider1"
-            android:text="Diciemrbe -- Enero 2024 - 2025"
+            android:text="Julio -- Agosto 2024 - 2025"
             android:textSize="12dp"
             android:textColor="@color/black"
             android:layout_marginEnd="24dp"
