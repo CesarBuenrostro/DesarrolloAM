@@ -67,9 +67,9 @@ class HistoryFragment : Fragment() {
                                 LinearLayoutManager.VERTICAL,
                                 false
                             )
-
+                            historyAdapter = HistoryAdapter(items)
+                            adapter = historyAdapter
                         }
-
                     } else {
                         Toast.makeText(requireContext(), "Haz pedidos", Toast.LENGTH_SHORT).show()
                     }
