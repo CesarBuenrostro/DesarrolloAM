@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment_content_main)
 
         val startDestination = intent.getStringExtra("startDestination")
+
         if (startDestination == "nav_shop") {
             navController.navigate(R.id.nav_shop)
         }
@@ -52,7 +53,10 @@ class MainActivity : AppCompatActivity() {
 
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_carrito, R.id.nav_profile, R.id.nav_shop, R.id.nav_history
+                R.id.nav_carrito,
+                R.id.nav_profile,
+                R.id.nav_shop,
+                R.id.nav_history
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.proyectodam.R
@@ -51,12 +54,14 @@ class CarritoFragment : Fragment() {
         RetrofitClient.instance.obtenerCarrito(tokenConBearer).enqueue(object : Callback<ApiResponseCarrito> {
             override fun onResponse(call: Call<ApiResponseCarrito>, response: Response<ApiResponseCarrito>) {
 
+                binding.tvTotal.text = "0"
+
                 if (response.isSuccessful && response.body()?.success == true) {
 
                     val carrito = response.body()?.data
                      val items = carrito?.items ?: emptyList()
 
-                    val Total = carrito?.total ?: 0
+                    val Total = carrito?.total ?: "0"
                     binding.tvTotal.text = "${Total}"
 
                     if (items.isNotEmpty()) {
@@ -127,13 +132,21 @@ class CarritoFragment : Fragment() {
                 val token = sessionManager.fetchAuthToken()
                 val tokenConBearer = "Bearer $token"
 
+            binding.tvTotal.text = "0"
+
                 RetrofitClient.instance.crearPedido(tokenConBearer)
                     .enqueue(object : Callback<ApiResponseGeneric> {
                         override fun onResponse(call: Call<ApiResponseGeneric>, response: Response<ApiResponseGeneric>) {
                             if (response.isSuccessful && response.body()?.success == true) {
                                 Toast.makeText(requireContext(), "¡Pedido realizado con éxito!", Toast.LENGTH_SHORT).show()
 
-                                findNavController().navigate(R.id.nav_history)
+                                findNavController().navigate(
+                                    R.id.nav_history,
+                                    null,
+                                    NavOptions.Builder()
+                                        .setPopUpTo(R.id.nav_carrito, true) // Elimina Carrito del backstack
+                                        .build()
+                                )
 
 
                             } else {
@@ -146,7 +159,7 @@ class CarritoFragment : Fragment() {
                             Toast.makeText(requireContext(), "Error de red: ${t.message}", Toast.LENGTH_SHORT).show()
                         }
                     })
-        } //
+        }
 
 
 

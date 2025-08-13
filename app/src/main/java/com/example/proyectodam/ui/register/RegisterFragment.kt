@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.example.proyectodam.databinding.FragmentRegisterBinding
@@ -39,8 +40,15 @@ class RegisterFragment : Fragment() {
             val edad = binding.inputEdad.text.toString().toIntOrNull() ?: 0
             val password = binding.inputPassword.text.toString().trim()
 
+            // Validación de campos vacíos
             if (nombre.isEmpty() || apellido.isEmpty() || correo.isEmpty() || password.isEmpty()) {
-                // Puedes mostrar un Toast de error
+                Toast.makeText(requireContext(), "Todos los campos son obligatorios", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Validación de longitud mínima de contraseña
+            if (password.length < 8) {
+                Toast.makeText(requireContext(), "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
