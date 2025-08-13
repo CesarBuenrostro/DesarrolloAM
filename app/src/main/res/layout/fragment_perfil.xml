@@ -38,7 +38,7 @@
         app:layout_constraintTop_toBottomOf="@+id/perfil"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/perfil"
+        android:src="@drawable/perfilimg"
         android:contentDescription="Imagen de perfil"
         android:scaleType="centerCrop"
         android:layout_marginTop="16dp" />
